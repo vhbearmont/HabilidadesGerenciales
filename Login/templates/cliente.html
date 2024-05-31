@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Necesario para posicionar la imagen */
+        }
+        h1 {
+            color: #5B7DC7;
+        }
+        h2 {
+            color: #5B7DC7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #5B7DC7;
+            color: #fff;
+        }
+        button {
+            background-color: #5B7DC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #445EAD;
+        }
+        .invoices {
+            
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            
+        }
+        .invoice-body{
+            overflow-y: auto; /* Agregar scroll vertical */
+            max-height: 200px; /* Altura máxima de la tabla */
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding-right: 0px;
+            border: 0;
+        }
+        .invoice-body tr {
+            width: 100%; /* Asegura que las filas ocupen todo el ancho */
+            display: table; /* Para que las filas se comporten como celdas de tabla */
+            table-layout: fixed; /* Fija el ancho de la tabla */
+            }
+        .invoice-header {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .billing-data {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .billing-header {
+            margin-bottom: 10px;
+        }
+        /* Estilo para la imagen en la esquina superior izquierda */
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            width: 200px; /* Ajusta el tamaño de acuerdo a tu necesidad */
+        }
+        .navbar-bottom {
+            padding: 30px;
+            background-color: #5B7DC7;
+            color: #fff;
+            border-radius: 5px;
+            position: relative;
+            bottom: 20px;
+            width: calc(100% + 40px); /* Ajuste para compensar el padding del contenedor */
+            margin-left: -20px; /* Ajuste para compensar el padding del contenedor */
+            width: 100%; /* Ajustar al 100% del ancho de la ventana */
+        }
+        .billing-details {
+        display: flex;
+        }
+        .current-data,
+        .modify-data {
+            flex: 1;
+        }
+        .modify-data {
+            margin-left: 20px;
+        }
+        input:focus {
+        outline: 2px solid #5B7DC7;
+        /* Otros estilos de contorno enfocado según sea necesario */
+        }
+        .modify-button {
+        text-align: right;
+        margin-top: 10px; /* Ajuste opcional para el espaciado entre el botón y los datos */
+        }
+        .cart-button {
+            position:absolute;
+            top: 50px; /* Ajusta la distancia desde la parte superior */
+            right: 40px; /* Ajusta la distancia desde la derecha */
+            z-index: 999; /* Asegura que esté sobre otros elementos */
+        }
+        .cart-button a {
+            color: #5B7DC7; /* Color del icono */
+            font-size: 24px; /* Tamaño del icono */
+            text-decoration: none; /* Eliminar subrayado del enlace */
+        }
+        .cart-button a:hover {
+            color: #445EAD; /* Color del icono al pasar el cursor */
+        }
+        .cart-count {
+            position: absolute;
+            top: 10px;
+            right: -10px; /* Ajuste fino para la posición del número */
+            background-color: red;
+            color: white;
+            font-size: 14px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+        .search-container {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center; /* Centra verticalmente los elementos */
+        }
+        .search-container input[type=text] {
+            flex: 1; /* El input ocupa todo el espacio restante */
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 17px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .search-container button {
+            margin-left: 10px; /* Ajuste para el espacio entre el input y el botón */
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la empresa">
+    <div class="container">
+        <div class="cart-button">
+            <form action="{{ url_for('ver_carrito') }}" method='POST'>
+                <input type="hidden" name="usuario" value="{{ usuario }}">
+                <button type="submit" class="fas fa-shopping-cart"></i> <!-- Icono de carrito de compras de Font Awesome -->
+                <span class="cart-count" id="cart-count">{{ carrito }}</span> <!-- Contador de artículos en el carrito -->
+            </form>
+        </div>
+        <div>
+        <h1>Articulos</h1>
+        <div class="search-container">
+          <form action="/buscar_articulo_cliente" method='POST'>
+            <input type="text" name="entrada" placeholder="Buscar por nombre de artículo...">
+            <input type="hidden" name="articulos" value="{{ articulos }}">
+            <button type="submit">Buscar</button>
+          </form>
+        </div>
+        <table>
+            <thead class="invoice-body">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody class="invoice-body">
+              {% for articulo in articulos %}
+              <tr>
+                <td>{{ articulo.nombre }}</td>
+                <td>{{ articulo.precio }}</td>
+                <td>
+                  <form action="/agregar_al_carrito" method='POST'>
+                    <input type="hidden" name="id" value="{{ articulo.id }}">
+                    <input type="hidden" name="cantidad" value="{{ articulo.cantidad }}">
+                    <input type="hidden" name="precio" value="{{ articulo.precio }}">
+                    <button type="submit">Agregar al carrito</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+                <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+        </table>
+        </div>
+
+        <div class="invoices">
+            <h2>Facturas</h2>
+            <table>
+                <thead class="invoice-body">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody class="invoice-body">
+                  {% for factura in facturas %}
+                  <tr>
+                    <td>{{ factura.fecha }}</td>
+                    <td>{{ factura.total }}</td>
+                    <td>
+                        <form action="/factura_generada" method='POST'>
+                          <input type="hidden" name="rfc" value="{{ factura.rfc }}">
+                          <input type="hidden" name="documento_aduanero" value="{{ factura.fecha }}">
+                          <input type="hidden" name="nombre" value="{{ factura.nombre }}">
+                          <input type="hidden" name="ciudad" value="{{ factura.ciudad }}">
+                          <input type="hidden" name="estado" value="{{ factura.estado }}">
+                          <input type="hidden" name="cp" value="{{ factura.cp }}">
+                          <input type="hidden" name="pago" value="{{ factura.pago }}">
+                          <input type="hidden" name="forma_pago" value="{{ factura.forma_pago }}">
+                          <input type="hidden" name="uso_fiscal" value="{{ factura.uso_fiscal }}">
+                          <input type="hidden" name="regimen_fiscal" value="{{ factura.regimen_fiscal }}">
+                          <input type="hidden" name="direccion" value="{{ factura.direccion }}">
+                          <input type="hidden" name="telefono" value="{{  factura.telefono }}">
+                          <input type="hidden" name="email" value="{{ factura.email }}">
+                          <input type="hidden" name="articulos" value="{{ articulos }}">
+                          <input type="hidden" name="total" value="{{ factura.total }}">
+                          <input type="hidden" name="guardar" value="0">
+                          <input type="hidden" name="id_fac" value="{{ factura.id }}">
+                          <input type="hidden" name="uuid" value="{{ factura.uuid }}">
+                          <input type="hidden" name="fecha" value="{{ factura.fecha }}">
+                          <button type="submit">Descargar</button>
+                        </form>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                    <!-- Puedes agregar más filas según sea necesario -->
+                </tbody>
+            </table>
+        </div>
+        <div class="modify-button">
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+    <div class="navbar-bottom"></div>
+    <script>
+        function descargarFactura() {
+            // Aquí puedes implementar la lógica para descargar la factura
+            console.log("Descargando factura...");
+        }
+
+        function modificarDatosFacturacion() {
+            // Aquí puedes implementar la lógica para modificar los datos de facturación
+            console.log("Modificando datos de facturación...");
+        }
+
+    </script>
+</body>
+</html>

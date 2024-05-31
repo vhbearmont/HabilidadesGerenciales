@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #5B7DC7;
+        }
+        h2 {
+            color: #5B7DC7;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #5B7DC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px; /* Separación entre botones */
+        }
+        button:hover {
+            background-color: #445EAD;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            width: 200px; /* Ajusta el tamaño de acuerdo a tu necesidad */
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la empresa">
+    <div class="container">
+        <h1>Generar Factura</h1>
+        <form action="/factura_generada" method="post">
+            <h2>Datos del Cliente</h2>
+            <!-- Condicional para mostrar u ocultar los datos del cliente -->
+            {% if tipo_cliente == 'empleado' %}
+                <label for="rfc">RFC:</label>
+                <input type="text" id="rfc" name="rfc" required>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <!-- Agrega aquí los demás campos de datos del cliente -->
+                <label for= "direccion">Direccion:</label>
+                <input type="text" id="direccion" name="direccion" required>
+                <label for= "ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+                <label type="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" required>
+                <label for="cp">Código Postal:</label>
+                <input type="text" id="cp" name="cp" required>
+                <label for="telefono">Telefono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+                <label for="regimen_fiscal">Régimen Fiscal:</label>       
+                <input type="text" id="regimen_fiscal" name="regimen_fiscal" required>
+                <label for="uso_fiscal">Uso Fiscal:</label>
+                <input type="text" id="uso_fiscal" name="uso_fiscal" required>
+            {% endif %}
+
+            <h2>Información Adicional</h2>
+            <label for="forma_pago">Forma de Pago:</label>
+            <input type="text" id="forma_pago" name="forma_pago" required>
+            <label for="pago">Pago:</label>
+            <input type="text" id="pago" name="pago" required>
+            <input type="hidden" name="articulos" value="{{ articulos }}">
+            <input type="hidden" name="guardar" value="1">
+            <input type="hidden" name="usuario" value="{{ usuario }}">
+            <button>Generar Factura (Opcional)</button>
+        </form>
+        <form action="/agradecimiento" method='POST'>
+            <input type="hidden" name="tipo_cliente" value="{{ tipo_cliente }}">
+            <button>Continuar</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6; /* Color de fondo */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            position: relative; /* Para posicionar los elementos internos */
+        }
+        .header {
+            text-align: left; /* Alineación a la izquierda */
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .logo {
+            width: 150px; /* Tamaño ajustado del logo */
+            margin-right: 20px; /* Espaciado entre el logo y el texto */
+            vertical-align: middle;
+        }
+        .company-name {
+            font-weight: bold;
+            font-size: 20px; /* Tamaño de fuente para el nombre de la compañía */
+            color: #5B7DC7; /* Color del texto */
+            position: absolute; /* Posicionamiento absoluto */
+            top: 170px; /* Alineación con el logo */
+            left: 50px; /* Alineación con el logo */
+        }
+        h1 {
+            color: #5B7DC7; /* Color de título */
+            margin: 0;
+            font-size: 32px; /* Tamaño de fuente para la leyenda "Factura" */
+            position: absolute; /* Posicionamiento absoluto */
+            top: 30px; /* Alineación con el logo */
+            right: 30px; /* Alineación con el borde derecho */
+        }
+        .info {
+            margin-top: 50px; /* Espacio entre el título y la información del cliente */
+            margin-bottom: 20px;
+            text-align: left; /* Alineación a la izquierda */
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        .invoice-table th {
+            background-color: #5B7DC7; /* Color de fondo de encabezado */
+            color: #fff; /* Color de texto de encabezado */
+        }
+        .invoice-total {
+            text-align: right;
+            font-weight: bold;
+            color: #5B7DC7;
+            text-transform: uppercase;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+        .facturar-table {
+            position: relative;
+            margin-top: 40px; /* Aumento del espacio entre Facturar A y Descripción */
+            margin-bottom: 20px; /* Reducción del espacio entre Facturar A y Descripción */
+            width: 45%; /* Ancho del 50% del contenedor */
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .facturar-table th, .facturar-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            background-color: #fff; /* Fondo blanco */
+            color: #000; /* Texto negro */
+        }
+        .facturar-table th {
+            background-color: #5B7DC7; /* Color de fondo del encabezado */
+            color: #fff; /* Color de texto del encabezado */
+        }
+        .invoice-number-table {
+            position: absolute;
+            top: 105px; /* Ajuste de la tabla Factura # */
+            right: 30px;
+            width: 45%; /* Ancho del 50% del contenedor */
+            border-collapse: collapse;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .invoice-number-table th, .invoice-number-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            background-color: #fff; /* Fondo blanco */
+            color: #000; /* Texto negro */
+        }
+        .invoice-number-table th {
+            background-color: #5B7DC7; /* Color de fondo del encabezado */
+            color: #fff; /* Color de texto del encabezado */
+        }
+        .letras-finales{
+            font-weight: bold;
+            font-size: 15px; /* Tamaño de fuente para el nombre de la compañía */
+            color: #5B7DC7; /* Color del texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la farmacia" class="logo">
+            <h1>Factura Electronica CFDI</h1>
+        </div>
+        <div class="company-name">FarmaFac</div>
+        <div class="info">
+            <p>G03 GASTOS EN GENERAL</p>
+            <p>Ciudad de Mexico, 2024</p>
+            <p>Ingreso</p>
+        </div>
+        <table class="facturar-table" border="1">
+            <thead>
+                <tr>
+                    <th colspan="2" style="background-color: #5B7DC7; color: #fff;">Cliente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RFC</td>
+                    <td>{{ rfc }}</td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td>{{ nombre }}</td>
+                </tr>
+                <tr>
+                    <td>Código Postal</td>
+                    <td>{{ cp }}</td>               
+                <tr>
+                    <td>Email</td>
+                    <td>{{ email }}</td>
+                </tr>
+                <tr>
+                    <td>Regimen Fiscal</td>
+                    <td>{{ regimen_fiscal }}</td>
+                </tr>
+                <tr>
+                    <td>Uso Fiscal</td>
+                    <td>{{ uso_fiscal }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="invoice-number-table" border="1">
+            <thead>
+                <tr>
+                    <th colspan="1" style="background-color: #5B7DC7; color: #fff;">Factura #</th>
+                    <th colspan="1" style="background-color: #5B7DC7; color: #fff;">Fecha</th>
+                    <th colspan="1" style="background-color: #5B7DC7; color: #fff;">Folio Fiscal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ id_fac }}</td>
+                    <td>{{ fecha }}</td>
+                    <td>{{ uuid }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="invoice-details">
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for articulo in articulos %}
+                    <tr>
+                      <td>{{ articulo.nombre }}</td>
+                      <td>{{ articulo.cantidad }}</td>
+                      <td>${{ articulo.precio }}</td>
+                      <td>${{ articulo.total }}</td>
+                    </tr>
+                    {% endfor %}
+                    <!-- Agrega más filas según sea necesario -->
+                </tbody>
+            </table>
+        </div>
+        <div class="invoice-total">
+          <p>Total: ${{ total }}</p>
+          <p><span style="text-align: center;">{{ pago_letra }} pesos M.N.</span></p>
+          <p><span style="text-align: center;">MXN PESOS MEXICANOS</span></p>
+          <p><span style="margin-right: 50px;">{{ pago }}</span>{{ forma_pago }} </p> 
+        </div>
+        <div class="footer">
+            <p>Gracias por su compra</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #5B7DC7;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #5B7DC7;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        button {
+            background-color: #5B7DC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #445EAD;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            width: 200px; /* Ajusta el tamaño de acuerdo a tu necesidad */
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la empresa">
+    <div class="container">
+        <h1>Carrito de Compras</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se listarán los artículos del carrito -->
+                {% for articulo in lista_compras %}
+                <tr>
+                  <td>{{ articulo.nombre }}</td>
+                  <td>{{ articulo.cantidad }}</td>
+                  <td>{{ articulo.precio }}</td>
+                  <td>{{ articulo.total }}</td>
+                </tr> 
+                {% endfor %}
+                <!-- Total general -->
+                <tr>
+                    <td colspan="3" class="total">Total:</td>
+                    <td class="total">{{ total }}</td>
+                </tr> 
+            </tbody>
+        </table>
+        <form action="{{ url_for('factura') }}", method='POST'>
+          <input type="hidden" name="articulos" value="{{ lista_compras }}">
+          <input type="hidden" name="total" value="{{ total }}">
+          <input type="hidden" name="usuario" value="{{ usuario }}">
+          <input type="hidden" name="tipo_usuario" value="{{ tipo_usuario }}">
+          <button type="submit">Comprar</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #5B7DC7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #5B7DC7;
+            color: #fff;
+        }
+        button {
+            background-color: #5B7DC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #445EAD;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            width: 200px; /* Ajusta el tamaño de acuerdo a tu necesidad */
+        }
+        .navbar-bottom {
+            padding: 30px;
+            background-color: #5B7DC7;
+            color: #fff;
+            border-radius: 5px;
+            position: relative;
+            bottom: 20px;
+            width: calc(100% + 40px); /* Ajuste para compensar el padding del contenedor */
+            margin-left: -20px; /* Ajuste para compensar el padding del contenedor */
+            width: 100%; /* Ajustar al 100% del ancho de la ventana */
+        }
+        .button-container {
+            margin-top: 10px; /* Añadir espacio vertical entre los botones */
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la empresa">
+    <div class="container">
+        <h1>Tabla de Usuarios</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                  <td>{{ usuario.nombre }}</td>
+                  <td>{{ usuario.email }}</td>
+                  <td>{{ usuario.rol }}</td>
+                  <td>
+                    <form action="/eliminar_usuario" method='POST'>
+                      <input type="hidden" name="id" value="{{ usuario.id }}">
+                      <input type="hidden" name="username" value="{{ usuario.username }}">
+                      <button type="submit">Eliminar Usuario</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+                <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+        </table>
+
+        <h1>Registros de Movimientos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movimiento in movimientos %}
+                <tr>
+                  <td>{{ movimiento.fecha }}</td>
+                  <td>{{ movimiento.descripcion }}</td>
+                </tr>
+                {% endfor %}
+                <!-- Puedes agregar más filas según sea necesario -->
+            </tbody>
+        </table>
+
+        <div class="button-container">
+            <form action="/registrar_usuario" method="POST">
+                <input type="hidden" name="user" value="{{ user }}">
+                <button type="submit">Agregar Usuario</button>
+            </form>
+        </div>
+        <div class="button-container">
+            <form action="/registrar_movimiento" method="GET">
+                <button type="submit">Agregar Movimiento</button>
+            </form>
+            <form action="/logout" method='POST'>
+              <td><br><button type "submit">Cerrar Sesion</button></td>
+            </form>
+        </div> 
+    </div>
+    <div class="navbar-bottom"></div>
+</body>
+</html>
+

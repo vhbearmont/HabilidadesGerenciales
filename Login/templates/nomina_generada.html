@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibo de Nómina - Farmacia XYZ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6; /* Color de fondo */
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            position: relative; /* Para posicionar los elementos internos */
+        }
+        .header {
+            text-align: center; /* Alineación centrada */
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #5B7DC7; /* Color de título */
+            margin: 0;
+            font-size: 32px; /* Tamaño de fuente para el título */
+            text-align: right;
+            margin-top: 110px;
+        }
+        .section {
+            margin-bottom: 30px; /* Espacio entre secciones */
+            position: relative; /* Para alinear la línea horizontal */
+        }
+        .section hr {
+            border: none;
+            border-top: 1px solid #ccc; /* Color de la línea */
+            position: absolute; /* Posicionamiento absoluto */
+            top: 100%; /* Alineación vertical */
+            width: calc(100% - 40px); /* Ancho de la línea */
+        }
+        h2 {
+            color: #5B7DC7; /* Color de subtítulos */
+            font-size: 24px; /* Tamaño de fuente para los subtítulos */
+            margin-bottom: 10px; /* Espacio inferior para los subtítulos */
+        }
+        p {
+            margin: 0; /* Elimina el margen predeterminado de los párrafos */
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .details-table th, .details-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .details-table th {
+            background-color: #5B7DC7; /* Color de fondo del encabezado */
+            color: #fff; /* Color de texto del encabezado */
+        }
+        .logo {
+            width: 150px; /* Tamaño ajustado del logo */
+            margin-right: 600px; /* Espaciado entre el logo y el texto */
+            vertical-align: middle;
+            margin-top: 10px;
+            position: absolute;
+        }
+        .company-name {
+            font-weight: bold;
+            font-size: 20px; /* Tamaño de fuente para el nombre de la compañía */
+            color: #5B7DC7; /* Color del texto */
+            position: absolute; /* Posicionamiento absoluto */
+            top: 170px; /* Alineación con el logo */
+            left: 80px; /* Alineación con el logo */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       <img src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la farmacia" class="logo"> 
+        <div class="header">
+            <h1>Nómina Electronica CFDI</h1> 
+        </div>
+        <div class="company-name">FarmaFac
+          <br>
+          <br>
+        </div>
+        <div class="section">
+          <h2><br>Datos personales del colaborador</h2>
+            <p>Número de empleado: {{ idEmpleado }}</p>
+            <p>Nombre: {{ nombre }}</p>
+            <p>RFC: {{ rfc }}</p>
+            <hr>
+        </div>
+        <div class="section">
+            <h2>Datos de la empresa</h2>
+            <p>Nombre o razón social: {{ razon_social }}</p>
+            <p>Dirección: {{ direccion }}</p>
+            <p>Sueldos y Salarios e Ingresos Asimilados a Salarios</p>
+            <hr>
+        </div>
+        <div class="section">
+            <h2>Detalles del salario laboral</h2>
+            <p>Sueldo base: ${{ sueldo_base }}</p>
+            <p>Sueldo diario: ${{ sueldo_diario }}</p>
+            <p>Periodo: {{ fecha }}</p>
+            <p>Pago por transferencia </p>
+            <p>Folio Fiscal: {{ uuid }} </p>
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>Faltas</th>
+                        <th>Descuentos</th>
+                        <th>Ingresos adicionales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ faltas }}</td>
+                        <td>${{ descuentos }}</td>
+                        <td>${{ adicionales }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p><br><span style="color: #5B7DC7; text-align: right; font-weight: bold; position: absolute; right: 30px">Total: ${{ total }}</span></p>
+            <p><br><span style="color: #5B7DC7; text-transform: uppercase; text-align: right; font-weight: bold; position: absolute; right: 30px">{{ pago_letra }} pesos M.N.</span></p>
+            <p><br><span style="color: #5B7DC7; text-align: right; font-weight: bold; position: absolute; right: 30px">MXN PESOS MEXICANOS</span></p>
+          
+        </div>
+    </div>
+</body>
+</html>
+

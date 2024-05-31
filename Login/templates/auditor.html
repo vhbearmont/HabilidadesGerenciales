@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditor</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #5B7DC7;
+        }
+        h2 {
+            color: #5B7DC7;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #5B7DC7;
+            color: #fff;
+        }
+        button {
+            background-color: #5B7DC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #445EAD;
+        }
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .search-form {
+            margin-bottom: 20px;
+        }
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            width: 200px; /* Ajusta el tamaño de acuerdo a tu necesidad */
+        }
+        .navbar-bottom {
+            padding: 30px;
+            background-color: #5B7DC7;
+            color: #fff;
+            border-radius: 5px;
+            position: relative;
+            bottom: 20px;
+            width: calc(100% + 40px); /* Ajuste para compensar el padding del contenedor*/
+            margin-left: -20px; /* Ajuste para compensar el padding del contenedor*/
+            width: 100%; /* Ajustar al 100% del ancho de la ventana */
+        }
+    </style>
+</head>
+<body>
+    <img class="logo" src="https://lh3.googleusercontent.com/drive-viewer/AKGpihYSS7_L_ylABb5k-iIWNutzB1H68dQUemtDNu5JFuHGrx84ZAw-qottjTGpWKQYl0m9ZUL_2AyLwrafYtyNLRqOnG6DlGMvPQ=s2560" alt="Logo de la empresa">
+    <div class="container">
+        <h1>Inventario</h1>
+        <div class="search-form">
+            <form action="/buscar_articulo" method='POST'>
+              <input type="text" name="entrada" placeholder="Buscar por nombre de artículo">
+               <input type="hidden" name="articulos" value="{{ articulos }}">  
+              <button type="submit">Buscar</button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for articulo in articulos %}
+                <tr>
+                    <td>{{ articulo.nombre }}</td>
+                    <td>{{ articulo.cantidad }}</td>
+                    <td>{{ articulo.precio }}</td>
+                    <td>
+                      <form action="/modificar_articulo" method='POST'>
+                        <input type="hidden" name="nombre" value="{{ articulo.nombre }}">
+                        <input type="hidden" name="precio" value="{{ articulo.precio }}">
+                        <input type="hidden" name="cantidad" value="{{ articulo.cantidad }}">
+                        <input type="hidden" name="id" value="{{ articulo.id }}">
+                        <p type="text" name="nombre" value="{{ articulo.nombre }}">
+                        <p type="number" name="precio" value="{{ articulo.cantidad }}"> 
+                        <p type="number" name="cantidad" value="{{ articulo.precio }}">  
+                        <button type="submit">Modificar</button>
+                      </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <h2>Agregar nuevo producto</h2>
+        <table>
+            <tr>
+              <form action="/agregar_articulo" method='POST'>
+                <td><input type="text" name="nombre" placeholder="Nombre del producto"></td>
+                <td><input type="number" name="precio" placeholder="Cantidad"></td>
+                <td><input type="number" name="cantidad" placeholder="Precio"></td>
+                <td><button type="submit">Agregar</button></td>
+              </form>
+              <form action="/logout" method='POST'>
+        </table>
+       <form action="/logout" method='POST'>
+          <td><br><button type "submit">Cerrar Sesion</button></td>
+       </form> 
+    </div>
+    <div class="navbar-bottom"></div>
+</body>
+</html>
+

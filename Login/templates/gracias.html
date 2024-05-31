@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por su Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Centrar el contenido del contenedor */
+        }
+        h1 {
+            color: #5B7DC7;
+        }
+        p {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #5B7DC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #445EAD;
+        }
+        /* Estilo para eliminar el borde y el margen de los enlaces que rodean a los botones */
+        .container a {
+            text-decoration: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Gracias por su Compra!</h1>
+        <p>Su pedido ha sido procesado con éxito.</p>
+
+        <!-- Eliminamos los bordes y márgenes de los enlaces que rodean a los botones -->
+        {% if tipo_cliente == 'empleado' %}
+           <a href="{{ url_for('empleado') }}">
+               <button>Volver a Página Principal</button>
+           </a>
+        {% else %}
+           <a href="{{ url_for('cliente') }}">
+               <button>Volver a Página Principal</button>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">
+            <button>Cerrar Sesión</button>
+        </a>
+    </div>
+</body>
+</html>
+
